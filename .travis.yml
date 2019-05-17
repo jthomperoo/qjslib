@@ -25,7 +25,6 @@ after_success:
       cd qjslib.wiki;
       git add .;
       git commit -m "${TRAVIS_TAG}";
-      git push origin;
       git push;
       cd ..;
     else
