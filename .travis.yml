@@ -16,7 +16,16 @@ after_success:
   - if [[ $TRAVIS_TAG ]]; then
       npm version --no-git-tag-version "${TRAVIS_TAG}";
       npm run build;
+      npm run docs;
       npm pack;
+      git config --global user.email "qjslib@ibm.com";
+      git config --global user.name "QJSLib CI";
+      git clone https://${GITHUB_OAUTH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.wiki.git;
+      cp -rf docs/* qjslib.wiki/;
+      git add .;
+      git commit -m "${TRAVIS_TAG}";
+      git push origin;
+      git push;
     else
       npm run build;
     fi
